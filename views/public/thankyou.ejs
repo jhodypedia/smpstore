@@ -1,0 +1,13 @@
+<div class="card glass p-4">
+  <h4>Pembayaran Dibuat</h4>
+  <p>Silakan scan QR berikut. Link juga dikirim ke WhatsApp & Email Anda.</p>
+  <% if (order.qr_image) { %>
+    <img src="<%= order.qr_image %>" class="img-fluid my-3" alt="QR">
+  <% } %>
+  <ul class="list-group list-group-flush bg-transparent">
+    <li class="list-group-item bg-transparent text-white d-flex justify-content-between"><span>Ref</span><span><%= order.reff_id %></span></li>
+    <li class="list-group-item bg-transparent text-white d-flex justify-content-between"><span>Nominal</span><span>Rp <%= order.amount %></span></li>
+    <li class="list-group-item bg-transparent text-white d-flex justify-content-between"><span>Status</span><span class="badge bg-warning text-dark"><%= order.status %></span></li>
+  </ul>
+  <a href="/" class="btn btn-outline-light mt-3">Kembali</a>
+</div>
