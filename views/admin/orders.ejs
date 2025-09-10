@@ -1,0 +1,25 @@
+<h3 class="mb-3">Orders</h3>
+<div class="table-responsive glass p-2">
+<table class="table table-dark table-striped align-middle">
+  <thead><tr>
+    <th>Ref</th><th>Game / Produk</th><th>Player</th><th>Kontak</th><th>Nominal</th><th>Status</th><th>Aksi</th><th>Waktu</th>
+  </tr></thead>
+  <tbody>
+  <% orders.forEach(o=>{ %>
+    <tr>
+      <td><code><%= o.reff_id %></code></td>
+      <td><%= o.Product?.Category?.name || '' %> / <%= o.Product?.name || '' %></td>
+      <td><%= o.player_id %> (<%= o.nickname %>)</td>
+      <td>WA: <%= o.contact_wa %><br>Email: <%= o.email %></td>
+      <td>Rp <%= o.amount %></td>
+      <td><span class="badge bg-<%= o.status==='success'?'success':o.status==='paid'?'info':o.status==='failed'?'danger':'warning text-dark' %>"><%= o.status %></span></td>
+      <td>
+        <form class="d-inline" method="post" action="/admin/orders/<%= o.reff_id %>/complete" onsubmit="return confirm('Set success?');"><button class="btn btn-sm btn-success"><i class="fa-solid fa-check"></i></button></form>
+        <form class="d-inline" method="post" action="/admin/orders/<%= o.reff_id %>/fail" onsubmit="return confirm('Set failed?');"><button class="btn btn-sm btn-danger"><i class="fa-solid fa-xmark"></i></button></form>
+      </td>
+      <td><%= o.createdAt.toLocaleString() %></td>
+    </tr>
+  <% }) %>
+  </tbody>
+</table>
+</div>
