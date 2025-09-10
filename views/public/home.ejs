@@ -1,0 +1,15 @@
+<h2 class="text-center mb-4">Pilih Game</h2>
+<div class="row row-cols-2 row-cols-md-4 g-4">
+  <% categories.forEach(c => { %>
+    <div class="col">
+      <a href="/topup/<%= c.id %>" class="text-decoration-none">
+        <div class="card h-100 shadow-sm game-card text-center">
+          <img src="<%= c.image %>" class="card-img-top p-3" alt="<%= c.name %>">
+          <div class="card-body">
+            <h6 class="card-title"><%= c.name %></h6>
+          </div>
+        </div>
+      </a>
+    </div>
+  <% }) %>
+</div>
