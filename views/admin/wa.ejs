@@ -1,0 +1,26 @@
+<h3 class="mb-3">WhatsApp Connect</h3>
+<p>Pilih metode: Scan QR atau Pairing Code.</p>
+<div class="row g-3">
+  <div class="col-md-6">
+    <div class="card glass p-3 text-center">
+      <h5>Scan QR</h5>
+      <% if (qr) { %>
+        <img class="img-fluid" src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=<%= encodeURIComponent(qr) %>">
+        <p class="mt-2 text-white-50">Scan dari WhatsApp → Linked Devices</p>
+      <% } else { %>
+        <p>QR belum tersedia, refresh halaman beberapa detik lagi.</p>
+      <% } %>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="card glass p-3">
+      <h5>Pairing Code</h5>
+      <% if (pairing) { %>
+        <div class="display-5 fw-bold"><%= pairing %></div>
+        <p class="text-white-50">Masukkan di menu Pair with Code.</p>
+      <% } else { %>
+        <p>Kode belum tersedia, refresh halaman.</p>
+      <% } %>
+    </div>
+  </div>
+</div>
