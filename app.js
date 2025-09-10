@@ -18,6 +18,12 @@ app.set('views', path.join(__dirname,'views'));
 app.use(expressLayouts);
 app.set('layout','layouts/main');
 
+// ✅ Middleware untuk default variable
+app.use((req, res, next) => {
+  res.locals.isAdmin = false; // default false untuk user publik
+  next();
+});
+
 // Routes
 app.use('/', require('./routes/public'));
 app.use('/admin', require('./routes/admin'));
