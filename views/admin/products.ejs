@@ -1,0 +1,46 @@
+<h3 class="mb-3">Products</h3>
+<div class="card glass p-3 mb-3">
+  <h5>Tambah</h5>
+  <form method="post" action="/admin/products/add" class="row g-2" onsubmit="showLoading()">
+    <div class="col-md-3"><input name="name" class="form-control" placeholder="Nama item" required></div>
+    <div class="col-md-2"><input name="price" type="number" class="form-control" placeholder="Harga jual" required></div>
+    <div class="col-md-2"><input name="baseCost" type="number" class="form-control" placeholder="Modal (opsional)"></div>
+    <div class="col-md-3">
+      <select name="categoryId" class="form-select" required>
+        <% cats.forEach(c=>{ %><option value="<%= c.id %>"><%= c.name %></option><% }) %>
+      </select>
+    </div>
+    <div class="col-md-12"><textarea name="description" class="form-control" placeholder="Deskripsi"></textarea></div>
+    <div class="col-md-12"><button class="btn btn-success">Simpan</button></div>
+  </form>
+</div>
+
+<div class="table-responsive glass p-2">
+<table class="table table-dark align-middle">
+  <thead><tr><th>Game</th><th>Produk</th><th>Harga</th><th>Modal</th><th>Deskripsi</th><th>Aksi</th></tr></thead>
+  <tbody>
+  <% products.forEach(p=>{ %>
+    <tr>
+      <td><%= p.Category?.name %></td>
+      <td><%= p.name %></td>
+      <td>Rp <%= p.price %></td>
+      <td>Rp <%= p.baseCost %></td>
+      <td><%= p.description %></td>
+      <td>
+        <form class="d-inline" method="post" action="/admin/products/edit/<%= p.id %>">
+          <input type="hidden" name="name" value="<%= p.name %>">
+          <input type="hidden" name="price" value="<%= p.price %>">
+          <input type="hidden" name="baseCost" value="<%= p.baseCost %>">
+          <input type="hidden" name="description" value="<%= p.description %>">
+          <input type="hidden" name="categoryId" value="<%= p.categoryId %>">
+          <button class="btn btn-sm btn-warning"><i class="fa-solid fa-pen"></i></button>
+        </form>
+        <form class="d-inline" method="post" action="/admin/products/delete/<%= p.id %>" onsubmit="return confirm('Hapus?')">
+          <button class="btn btn-sm btn-danger"><i class="fa-solid fa-trash"></i></button>
+        </form>
+      </td>
+    </tr>
+  <% }) %>
+  </tbody>
+</table>
+</div>
