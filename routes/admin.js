@@ -15,16 +15,24 @@ router.get('/seed', async (req,res) => {
   res.send('Created admin: admin / admin123');
 });
 
-router.get('/login', (req,res)=> res.render('admin/login', { title:'Admin Login' }));
+router.get('/login', (req,res)=> 
+  res.render('admin/login', { title:'Admin Login', isAdmin: true })
+);
+
 router.post('/login', async (req,res)=>{
   const { username, password } = req.body;
   const a = await Admin.findOne({ where: { username } });
-  if (!a) return res.render('admin/login', { title:'Admin Login', error:'Invalid' });
+  if (!a) return res.render('admin/login', { title:'Admin Login', error:'Invalid', isAdmin: true });
   const ok = await bcrypt.compare(password, a.password_hash);
-  if (!ok) return res.render('admin/login', { title:'Admin Login', error:'Invalid' });
-  req.session.adminId = a.id; res.redirect('/admin');
+  if (!ok) return res.render('admin/login', { title:'Admin Login', error:'Invalid', isAdmin: true });
+  req.session.adminId = a.id; 
+  res.redirect('/admin');
 });
-router.get('/logout', (req,res)=>{ req.session.destroy(()=>{}); res.redirect('/admin/login'); });
+
+router.get('/logout', (req,res)=>{ 
+  req.session.destroy(()=>{}); 
+  res.redirect('/admin/login'); 
+});
 
 router.get('/', ensureAdmin, async (req,res) => {
   const total = await Order.count();
@@ -39,17 +47,22 @@ router.get('/', ensureAdmin, async (req,res) => {
     if (['paid','success'].includes(r.status)) {
       omzet += r.amount || 0;
       const modal = (r.Product?.baseCost || 0);
-      const gatewayCost = (r.fee || 0); // optional
+      const gatewayCost = (r.fee || 0); 
       biaya += modal + gatewayCost;
       profit += (r.amount || 0) - modal - gatewayCost;
     }
   }
-  res.render('admin/dashboard', { title:'Dashboard', stats:{ total, paid, success, failed, omzet, biaya, profit } });
+
+  res.render('admin/dashboard', { 
+    title:'Dashboard', 
+    stats:{ total, paid, success, failed, omzet, biaya, profit },
+    isAdmin: true
+  });
 });
 
 router.get('/orders', ensureAdmin, async (req,res) => {
   const orders = await Order.findAll({ include: Product, order:[['createdAt','DESC']] });
-  res.render('admin/orders', { title:'Orders', orders });
+  res.render('admin/orders', { title:'Orders', orders, isAdmin: true });
 });
 
 router.post('/orders/:reff/complete', ensureAdmin, async (req,res)=>{
@@ -59,6 +72,7 @@ router.post('/orders/:reff/complete', ensureAdmin, async (req,res)=>{
   await notifySuccess({ contact_wa:o.contact_wa, email:o.email, store:process.env.STORE_NAME, reff_id:o.reff_id });
   res.redirect('/admin/orders');
 });
+
 router.post('/orders/:reff/fail', ensureAdmin, async (req,res)=>{
   const o = await Order.findOne({ where:{ reff_id: req.params.reff } , include: Product });
   if (!o) return res.redirect('/admin/orders');
@@ -71,7 +85,7 @@ router.post('/orders/:reff/fail', ensureAdmin, async (req,res)=>{
 router.get('/wa', ensureAdmin, async (req,res)=>{
   const qr = await getQrCode();
   const pairing = await getPairingCode();
-  res.render('admin/wa', { title:'WhatsApp Connect', qr, pairing });
+  res.render('admin/wa', { title:'WhatsApp Connect', qr, pairing, isAdmin: true });
 });
 
 module.exports = router;
