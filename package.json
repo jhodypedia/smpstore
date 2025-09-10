@@ -1,0 +1,31 @@
+{
+  "name": "domino-multigame",
+  "version": "1.0.0",
+  "type": "commonjs",
+  "main": "app.js",
+  "scripts": {
+    "dev": "nodemon app.js"
+  },
+  "dependencies": {
+    "@whiskeysockets/baileys": "*",
+    "axios": "*",
+    "bcryptjs": "*",
+    "body-parser": "*",
+    "dotenv": "*",
+    "ejs": "*",
+    "express": "*",
+    "express-ejs-layouts": "*",
+    "express-session": "*",
+    "md5": "*",
+    "multer": "*",
+    "mysql2": "*",
+    "nodemailer": "*",
+    "qrcode": "*",
+    "sequelize": "*",
+    "uuid": "*",
+    "pino": "*"
+  },
+  "devDependencies": {
+    "nodemon": "*"
+  }
+}
