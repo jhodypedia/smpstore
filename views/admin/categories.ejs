@@ -1,0 +1,41 @@
+<h3 class="mb-3">Categories</h3>
+<div class="row">
+  <div class="col-md-5">
+    <div class="card glass p-3 mb-3">
+      <h5>Tambah</h5>
+      <form method="post" action="/admin/categories/add" onsubmit="showLoading()">
+        <input name="name" class="form-control mb-2" placeholder="Game name" required>
+        <input name="image" class="form-control mb-2" placeholder="Image URL" required>
+        <textarea name="description" class="form-control mb-2" placeholder="Description"></textarea>
+        <button class="btn btn-success">Simpan</button>
+      </form>
+    </div>
+  </div>
+  <div class="col-md-7">
+    <div class="table-responsive glass p-2">
+      <table class="table table-dark align-middle">
+        <thead><tr><th>Img</th><th>Name</th><th>Desc</th><th>Aksi</th></tr></thead>
+        <tbody>
+        <% cats.forEach(c=>{ %>
+          <tr>
+            <td><img src="<%= c.image %>" style="width:60px"></td>
+            <td><%= c.name %></td>
+            <td><%= c.description %></td>
+            <td>
+              <form class="d-inline" method="post" action="/admin/categories/edit/<%= c.id %>">
+                <input type="hidden" name="name" value="<%= c.name %>">
+                <input type="hidden" name="image" value="<%= c.image %>">
+                <input type="hidden" name="description" value="<%= c.description %>">
+                <button class="btn btn-sm btn-warning"><i class="fa-solid fa-pen"></i></button>
+              </form>
+              <form class="d-inline" method="post" action="/admin/categories/delete/<%= c.id %>" onsubmit="return confirm('Hapus?')">
+                <button class="btn btn-sm btn-danger"><i class="fa-solid fa-trash"></i></button>
+              </form>
+            </td>
+          </tr>
+        <% }) %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
