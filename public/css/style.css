@@ -1,0 +1,35 @@
+:root {
+  --bg: #0e1117; --text:#fff; --glass: rgba(255,255,255,.08); --border: rgba(255,255,255,.15);
+}
+:root[data-theme="light"] {
+  --bg: #f6f8fa; --text:#111; --glass: rgba(0,0,0,.05); --border: rgba(0,0,0,.1);
+}
+html,body{height:100%}
+body{font-family:'Poppins',sans-serif;background: radial-gradient(1200px 800px at 10% 10%, rgba(0,123,255,.2), transparent), radial-gradient(1000px 700px at 90% 20%, rgba(255,0,150,.2), transparent), var(--bg); color:var(--text);}
+
+.glass, .glass-nav { background: var(--glass); border:1px solid var(--border); border-radius:14px; backdrop-filter: blur(8px); }
+.navbar.glass-nav { margin:12px; }
+
+.game-card{transition:transform .2s; border:1px solid var(--border);}
+.game-card:hover{transform:translateY(-4px);}
+
+.stat-card{background:var(--glass); border:1px solid var(--border); border-radius:12px; padding:16px; text-align:center; min-height:110px; box-shadow:0 6px 20px rgba(0,0,0,.12)}
+.stat-card i{font-size:22px; opacity:.8}
+.stat-card b{display:block; font-size:20px; margin-top:6px}
+.stat-card.focus{outline:2px dashed rgba(255,255,255,.2);}
+
+.app-wrap{display:flex; gap:16px; padding:0 12px;}
+.sidebar{width:250px; transition: transform .25s ease; height: calc(100vh - 120px); position:sticky; top:84px; border-radius:14px;}
+.sidebar.collapsed{transform: translateX(-270px);}
+.sidebar .sidebar-header{display:flex; align-items:center; gap:8px; padding:12px 14px; border-bottom:1px solid var(--border);}
+.sidebar ul a{display:block; padding:10px 14px; color:var(--text); text-decoration:none; border-left:3px solid transparent;}
+.sidebar ul a:hover{background: rgba(255,255,255,.06);}
+.sidebar ul a.active{border-color:#ffc107; background: rgba(255,193,7,.15);}
+
+.loading-overlay{position:fixed; inset:0; background:rgba(0,0,0,.35); display:grid; place-items:center; z-index:1050;}
+.bg-gradient{animation: floatBg 14s linear infinite alternate;}
+@keyframes floatBg{0%{background-position:0 0},100%{background-position:100% 100%}}
+
+@media (max-width: 991px){
+  .sidebar{position:fixed; top:72px; left:12px; z-index:1040; height:auto; max-height:calc(100vh - 96px); overflow:auto;}
+}
