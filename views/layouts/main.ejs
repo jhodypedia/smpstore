@@ -14,25 +14,38 @@
 <body class="bg-gradient">
 
 <!-- Loading Overlay -->
-<div id="loading" class="loading-overlay d-none"><div class="spinner-border" role="status"></div></div>
+<div id="loading" class="loading-overlay d-none">
+  <div class="spinner-border" role="status"></div>
+</div>
 
 <nav class="navbar navbar-dark glass-nav px-3">
-  <button class="btn btn-outline-light me-2 d-none d-md-inline" id="sidebarToggle"><i class="fa-solid fa-bars"></i></button>
-  <a class="navbar-brand fw-bold" href="/"><i class="fa-solid fa-gamepad"></i> <%= process.env.STORE_NAME %></a>
+  <% if (isAdmin) { %>
+    <button class="btn btn-outline-light me-2 d-none d-md-inline" id="sidebarToggle">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+  <% } %>
+  <a class="navbar-brand fw-bold" href="/">
+    <i class="fa-solid fa-gamepad"></i> <%= process.env.STORE_NAME %>
+  </a>
   <div class="d-flex align-items-center gap-2">
-    <button class="btn btn-outline-light btn-sm" id="themeToggle"><i class="fa-solid fa-moon"></i></button>
-    <!-- Tidak tampilkan link admin di publik; admin akses manual /admin/login -->
+    <button class="btn btn-outline-light btn-sm" id="themeToggle">
+      <i class="fa-solid fa-moon"></i>
+    </button>
   </div>
 </nav>
 
 <div class="app-wrap">
-  <%- include('../partials/_sidebar'); %>
+  <% if (isAdmin) { %>
+    <%- include('../partials/_sidebar'); %>
+  <% } %>
   <main class="container py-4">
     <%- body %>
   </main>
 </div>
 
-<footer class="text-center text-white-50 py-4">© <%= new Date().getFullYear() %> <%= process.env.STORE_NAME %> • by PansaGroup</footer>
+<footer class="text-center text-white-50 py-4">
+  © <%= new Date().getFullYear() %> <%= process.env.STORE_NAME %> • by PansaGroup
+</footer>
 
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
