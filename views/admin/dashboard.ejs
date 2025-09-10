@@ -1,0 +1,14 @@
+<h3 class="mb-4">Dashboard</h3>
+<div class="row g-3">
+  <div class="col-md-3"><div class="stat-card"><i class="fa-solid fa-receipt"></i><div>Total Trx</div><b><%= stats.total %></b></div></div>
+  <div class="col-md-3"><div class="stat-card"><i class="fa-solid fa-money-check-dollar"></i><div>Paid</div><b><%= stats.paid %></b></div></div>
+  <div class="col-md-3"><div class="stat-card"><i class="fa-solid fa-circle-check"></i><div>Success</div><b><%= stats.success %></b></div></div>
+  <div class="col-md-3"><div class="stat-card"><i class="fa-solid fa-circle-xmark"></i><div>Failed</div><b><%= stats.failed %></b></div></div>
+</div>
+
+<h5 class="mt-4">Keuangan</h5>
+<div class="row g-3">
+  <div class="col-md-4"><div class="stat-card focus"><i class="fa-solid fa-sack-dollar"></i><div>Omzet</div><b>Rp <%= stats.omzet %></b></div></div>
+  <div class="col-md-4"><div class="stat-card"><i class="fa-solid fa-coins"></i><div>Biaya</div><b>Rp <%= stats.biaya %></b></div></div>
+  <div class="col-md-4"><div class="stat-card"><i class="fa-solid fa-hand-holding-dollar"></i><div>Profit</div><b>Rp <%= stats.profit %></b></div></div>
+</div>
